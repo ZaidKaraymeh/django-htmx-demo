@@ -24,4 +24,18 @@ class HtmxHttpRequest(HttpRequest):
 def home(request: HtmxHttpRequest) -> HttpResponse:
     page_num = request.GET.get("page", "1")
     page = Paginator(object_list=people, per_page=10).get_page(page_num)
+    search_results = None
+    search = request.GET.get("q", '')
+    print(search, type(search))
+    if request.htmx:
+        if search:
+            search_results = Paginator(
+            object_list=[p for p in people if search.lower() in p.name.lower()],
+            per_page=10).get_page(1)
+        else:
+            search_results = None
+        return render(request, "search_results.html", {"search_results": search_results})
+
+
     return render(request, "home.html", {"persons": page})
+

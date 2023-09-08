@@ -1,6 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<input type="text" name="q"
+    hx-get="/"
+    hx-trigger="keyup changed delay:500ms"
+    hx-target="#search-results"
+    hx-push-url="true"
+    placeholder="Search..."
+>
+<div id="search-results">
+    home
+    {% include 'search_results.html' %}
+</div>
+
 <table class="table table-striped">
 
     <thead>
