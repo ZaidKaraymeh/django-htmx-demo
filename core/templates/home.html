@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<table class="table table-striped">
+
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>name</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for person in persons %}
+        <tr>
+            <td>{{ person.id }}</td>
+            <td>{{ person.name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        {% if persons.has_previous %}
+            <li class="page-item"><a class="page-link" href="?page={{ persons.previous_page_number }}">Previous</a></li>
+        {% endif %}
+        <span class="current">
+            Page {{ persons.number }} of {{ persons.paginator.num_pages }}.
+        </span>
+        {% if persons.has_next %}
+            <li class="page-item"><a class="page-link" href="?page={{ persons.next_page_number }}">Next</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock content %}
